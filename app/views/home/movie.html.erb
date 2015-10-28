@@ -9,9 +9,7 @@
                             $('.test').text(player.ext_getPlayheadTime());
                         },100);
                         setInterval(function(){
-                            if(<%=@highlights_place[0][0]%>=="0:00"){
-                                
-                            }else if(player.ext_getPlayheadTime()<=1){
+                            if(player.ext_getPlayheadTime()<=1){
                                 player.ext_setPlayheadTime(50);
                             }
                         },100);
