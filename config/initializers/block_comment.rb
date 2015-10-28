@@ -65,7 +65,7 @@ def from_vpos_to_time(time_range, m_division)
     start_time[i] = min.to_s + ':' + ss.to_s
     i = i + 1  
   end
-  start_time.unshift 0
+  start_time.unshift "0:00"
   start_time.pop 
 
   i = 0
