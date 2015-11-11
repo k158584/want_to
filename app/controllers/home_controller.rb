@@ -101,6 +101,7 @@ class HomeController < ApplicationController
     @threshold = get_threshold(@block_com_num)
     @highlights_place = get_highlight_place(@threshold,@block_com_num,@start_time,@finish_time)
     @video_title = movie_thumb_info[:thumb][:title]
+    @video_length = movie_thumb_info[:thumb][:length]
 
     @q = session[:q]
   end

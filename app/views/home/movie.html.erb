@@ -53,15 +53,20 @@ span#tooltip{
     <div class="row centered">
         <div class="col-lg-6 centered" data-step="1" data-intro="ここが動画再生エリアです">
             <script type="text/javascript" src=<%= "http://ext.nicovideo.jp/thumb_watch/"+@id %>></script><noscript><a href= <%="http://www.nicovideo.jp/watch/"+ @id %>>nicovideo</a></noscript>
+            <% f_highlight = @highlights_place[0][0].split(":") %>
+            <% f_highlight = f_highlight[0].to_i * 60 + f_highlight[1].to_i %>
+            <% v_length_sec = @video_length.split(":") %>
+            <% v_length_sec = v_length_sec[0].to_i * 60 + v_length_sec[1].to_i %>
+            <%= highlight_percent = f_highlight/(v_length_sec.to_f) %>
             <script type="text/javascript">
                 function onNicoPlayerReady(id){
                     var player = document.getElementById(id);
                         setInterval(function(){
-                            $('.test').text(player.ext_getPlayheadTime());
+                            $('.test').text(player.ext_getLoadedRatio());
                         },100);
                         setInterval(function(){
-                            if(player.ext_getPlayheadTime()<=1){
-                                player.ext_setPlayheadTime(50);
+                            if(player.ext_getPlayheadTime()<= (<%= f_highlight%>-10) && player.ext_getLoadedRatio()>= <%= highlight_percent %>){
+                                player.ext_setPlayheadTime(<%= f_highlight %>);
                             }
                         },100);
                 }
@@ -229,11 +234,11 @@ span#tooltip{
         <% end %>
     </div>
 </div>
-
 <% if Rails.env.development? %>
-    <%= @highlights_place[0][0].split(":")%>
+    <% test = @highlights_place[0][0].split(":") %>
+    <%= test[0].to_i * 60 + test[1].to_i %>
     <br>
-    <b>再生時間 : </b><span class="test"></span>
+    <b>ロード％ : </b><span class="test"></span>
     <br>
 
     <b>分割数 : </b>
