@@ -67,7 +67,7 @@ span#tooltip{
                             $('.test').text(player.ext_getLoadedRatio());
                         },100);
                         setInterval(function(){
-                            if(player.ext_getPlayheadTime()<= (<%= f_highlight%>-10) && player.ext_getLoadedRatio()>= <%= highlight_percent %>){
+                            if(player.ext_getPlayheadTime()<= (<%= f_highlight%>-10) && player.ext_getLoadedRatio()>= (<%= highlight_percent %>+0.05)){
                                 player.ext_setPlayheadTime(<%= f_highlight %>);
                             }
                         },100);
