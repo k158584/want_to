@@ -36,6 +36,8 @@ gem 'devise-bootstrap-views'
 gem 'cancancan'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+gem 'omniauth'
+gem 'omniauth-facebook'
 # form helper
 gem 'enum_help'
 
@@ -49,8 +51,8 @@ gem 'enum_help'
 # gem 'capistrano-rails', group: :development
 
 gem 'rubocop', require: false
-
-gem "introjs-rails"
+gem 'font-awesome-rails'
+gem 'introjs-rails'
 
 gem 'rails-i18n'
 
