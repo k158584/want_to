@@ -69,11 +69,14 @@ $(function() {
             <script type="text/javascript">
                 function onNicoPlayerReady(id){
                     var player = document.getElementById(id);
+                    var s_check;
                         setInterval(function(){
+                            s_check = document.seek_check.cb1.checked;
                             $('.test').text(player.ext_getLoadedRatio());
+                            $('.scheck').text(s_check);
                         },100);
                         setInterval(function(){
-                            if(player.ext_getPlayheadTime()<= (<%= f_highlight%>-10) && player.ext_getLoadedRatio()>= (<%= highlight_percent %>+0.05)){
+                            if(player.ext_getPlayheadTime()<= (<%= f_highlight%>-10) && player.ext_getLoadedRatio()>= (<%= highlight_percent %>+0.05) && s_check){
                                 player.ext_setPlayheadTime(<%= f_highlight %>);
                             }
                         },100);
@@ -261,6 +264,7 @@ svg.append("g")
     <br>
     <b>ロード％ : </b><span class="test"></span>
     <br>
+    <span class="scheck"></span>
     <b>ハイライト箇所：</b><%= highlight_percent = f_highlight/(v_length_sec.to_f) %>
     <br>
 
