@@ -95,3 +95,16 @@ def get_highlight_place(threshold,com_num,start_time,finish_time)
   
   return start_finish
 end
+
+def best_highlight_place(com_num, start_time)
+  best_start = 0
+  larger_num = 0
+  com_num.length.times do |i|
+    if com_num[i] > larger_num
+      larger_num = com_num[i]
+      best_start = start_time[i]
+    end
+  end
+
+  return best_start
+end
