@@ -65,11 +65,6 @@ $(function() {
 		<div class="row centered">
 			<div class="col-lg-6 centered" data-step="1" data-intro="ここが動画再生エリアです">
 				<script type="text/javascript" src=<%= "http://ext.nicovideo.jp/thumb_watch/"+@id %>></script><noscript><a href= <%="http://www.nicovideo.jp/watch/"+ @id %>>nicovideo</a></noscript>
-            <% f_highlight = @highlights_place[0][0].split(":") %>
-            <% f_highlight = f_highlight[0].to_i * 60 + f_highlight[1].to_i %>
-            <% v_length_sec = @video_length.split(":") %>
-            <% v_length_sec = v_length_sec[0].to_i * 60 + v_length_sec[1].to_i %>
-            <% highlight_percent = f_highlight/(v_length_sec.to_f) %>
             <form name="seek_check" action="">
                 <input type="checkbox" id="cb1" value="1"><label for=cb1>ロード後にハイライトに移動！</label><br>
             </form>
@@ -83,22 +78,21 @@ $(function() {
                             $('.scheck').text(s_check);
                         },100);
                         setInterval(function(){
-                            if(player.ext_getPlayheadTime()<= (<%= f_highlight%>-10) && player.ext_getLoadedRatio()>= (<%= highlight_percent %>+0.05) && s_check){
-                                player.ext_setPlayheadTime(<%= f_highlight %>);
+                            if(player.ext_getPlayheadTime()<= (<%=@best_start%>-10) && player.ext_getLoadedRatio()>= (<%=@highlight_percent%>+0.05) && s_check){
+                                player.ext_setPlayheadTime(<%=@best_start%>);
                             }
                         },100);
                 }
             </script>
 				<% if user_signed_in? %>
 					<div class="row centered mt">
-					<%= form_tag({:controller => 'home', :action => 'create'}, :remote => true, :class => 'form-ajax') do %>
+					<%= form_tag({:controller => 'home', :action => 'create'}, :remote => true, :class => 'form-ajax', :id => 'create-fusen') do %>
 						<%= hidden_field_tag :smid, @id %>
 					<%= hidden_field_tag :start_vpos, 0, :id => 'vpos' %>
 					<div class="input-group">
 						<%= text_field_tag :comment, "", :class => "form-control", placeholder: "ふせんにコメントをつけてみる" %>
 						<span class="input-group-btn">
-							<%= button_tag '<i class="glyphicon glyphicon-bookmark"></i>ふせんをつける'.html_safe, :type=> "submit",
-								:class => 'btn btn-primary btn-sm', :id => 'btnCreate' %>
+							<%= link_to '<i class="glyphicon glyphicon-bookmark"></i>ふせんをつける'.html_safe, '#',  :class => 'btn btn--s btn-no-padding', :id => 'btnCreate' %>
 						</span>
 						</div>
 					<% end %>
@@ -293,7 +287,7 @@ svg.append("g")
     <b>ロード％ : </b><span class="test"></span>
     <br>
     <span class="scheck"></span>
-    <b>ハイライト箇所：</b><%= highlight_percent = f_highlight/(v_length_sec.to_f) %>
+    <b>ハイライト箇所：</b><%= @highlight_percent %>
     <br>
 
 	<b>分割数 : </b>

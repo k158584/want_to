@@ -106,7 +106,9 @@ class HomeController < ApplicationController
     @threshold = get_threshold(@block_com_num)
     @highlights_place = get_highlight_place(@threshold,@block_com_num,@start_time,@finish_time)
     @video_title = movie_thumb_info[:thumb][:title]
-    @video_length = movie_thumb_info[:thumb][:length]
+    @video_length = @vpos_video_length/100
+    @best_start = (time_to_vpos(best_highlight_place(@block_com_num, @start_time))/100)
+    @highlight_percent = @best_start.to_f/@video_length.to_f
 
     @q = session[:q]
   end
